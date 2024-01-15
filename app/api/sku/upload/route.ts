@@ -34,26 +34,35 @@ export async function POST(req: Request) {
 
     const stream = createReadStream(fullPath);
 
-    db.serialize(() => {
-      stream.pipe(csvParser()).on("data", (data) => {
-        const { quantity, sku, description, store } = data;
-        db.run(
-          "INSERT INTO products (quantity, sku, description, store) VALUES (?, ?, ?, ?)",
-          [quantity, sku, description, store]
-        );
+    const status = await new Promise<number>((resolve, reject) => {
+      db.serialize(() => {
+        stream.pipe(csvParser()).on("data", (data) => {
+          const { quantity, sku, description, store } = data;
+          db.run(
+            "INSERT INTO products (quantity, sku, description, store) VALUES (?, ?, ?, ?)",
+            [quantity, sku, description, store],
+            (error) => {
+              if (error) {
+                reject(
+                  `Error inserting data into database. Databae error: ${error}`
+                );
+              }
+            }
+          );
+        });
+      });
+
+      stream.on("end", async () => {
+        await deleteFile(fullPath);
+      });
+
+      stream.on("error", (error) => {
+        reject("Error processing file");
       });
     });
 
-    stream.on("end", async () => {
-      await deleteFile(fullPath);
-    });
-
-    stream.on("error", (error) => {
-      throw new Error("Error processing file");
-    });
-
     return new Response("File uploaded and processed successfully", {
-      status: 200,
+      status: 201,
     });
   } catch (error) {
     return getApiRouteError(error);
