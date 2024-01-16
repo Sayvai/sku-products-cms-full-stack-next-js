@@ -85,9 +85,9 @@ const FileUpload = ({
           {buttonLabel}
         </label>
         <p className="block text-2xl text-center">{dropZoneLabel}</p>
-        <small className="text-center text-gray-300">
+        <small className="text-center text-gray-500 dark:text-gray-300">
           Accepted file type(s):{" "}
-          <span className="text-orange-500">{acceptedFileTypes}</span>
+          <span className="text-orange-500 font-bold">{acceptedFileTypes}</span>
         </small>
         {uploading && (
           <p className="block text-2xl text-center">Uploading...</p>
