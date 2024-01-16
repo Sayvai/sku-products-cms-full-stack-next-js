@@ -37,7 +37,7 @@ export async function GET(req: Request) {
       });
     });
 
-    return Response.json({ data: rows });
+    return Response.json(rows);
   } catch (error) {
     return getApiRouteError(error);
   }
