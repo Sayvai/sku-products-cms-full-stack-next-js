@@ -3,10 +3,7 @@ import csvParser from "csv-parser";
 import { getDatabase } from "@/app/_lib/db";
 import { createTemporaryFile, deleteFile } from "@/app/_lib/files";
 import { getApiRouteError } from "@/app/_lib/api";
-import {
-  SkuFileUploadApiRequest,
-  skuFileUploadApiRequestValidator,
-} from "@/app/_types/sku";
+import { skuFileUploadApiRequestValidator } from "@/app/_types/sku";
 
 export async function POST(req: Request) {
   try {
@@ -54,6 +51,8 @@ export async function POST(req: Request) {
 
       stream.on("end", async () => {
         await deleteFile(fullPath);
+
+        resolve(201);
       });
 
       stream.on("error", (error) => {
@@ -62,7 +61,7 @@ export async function POST(req: Request) {
     });
 
     return new Response("File uploaded and processed successfully", {
-      status: 201,
+      status,
     });
   } catch (error) {
     return getApiRouteError(error);
