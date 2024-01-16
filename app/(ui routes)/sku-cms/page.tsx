@@ -1,4 +1,4 @@
-import FileUpload from "@/app/_components/file-upload/FileUpload";
+import FileUpload from "@/app/_components/file-upload/file-upload";
 
 export default function SkuCmsPage() {
   return (
