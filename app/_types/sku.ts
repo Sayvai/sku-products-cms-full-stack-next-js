@@ -8,7 +8,7 @@ export const skuFileUploadApiRequestValidator = zfd.formData({
 export const skuItemApiRequestValidator = zfd.formData({
   quantity: zfd.numeric(z.number().min(0)),
   sku: zfd.text(),
-  description: zfd.text().optional(),
+  description: z.string().optional(),
   store: zfd.text(),
 });
 

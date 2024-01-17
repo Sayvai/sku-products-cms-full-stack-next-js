@@ -14,6 +14,8 @@ import {
 
 import { SkuItemApiResponse } from "@/app/_types/sku";
 import { deleteSkuItem } from "@/app/_actions/sku";
+import DialogTriggerItem from "../dialog-trigger-item/dialog-trigger-item";
+import SkuProductForm from "../sku-product-form/sku-product-form";
 
 export const columns: ColumnDef<SkuItemApiResponse>[] = [
   {
@@ -53,6 +55,12 @@ export const columns: ColumnDef<SkuItemApiResponse>[] = [
               Copy SKU ID
             </DropdownMenuItem>
             <DropdownMenuSeparator />
+            <DialogTriggerItem
+              title={`Edit SKU ID: ${skuItem.sku}`}
+              triggerItem={"Edit"}
+            >
+              <SkuProductForm data={skuItem} primaryActionLabel="Update" />
+            </DialogTriggerItem>
             <DropdownMenuItem onClick={() => deleteSkuItem(skuItem.sku)}>
               Delete
             </DropdownMenuItem>

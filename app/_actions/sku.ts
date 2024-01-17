@@ -2,7 +2,7 @@
 
 import { revalidatePath } from "next/cache";
 import { getHost } from "../_lib/api";
-import { skuIdValidator } from "../_types/sku";
+import { SkuItemApiRequest, skuIdValidator } from "../_types/sku";
 
 export async function deleteSkuItem(skuId: string) {
   const host = getHost();
@@ -26,5 +26,48 @@ export async function deleteSkuItem(skuId: string) {
     }`;
     console.error(message);
     alert(message);
+  }
+}
+
+type ActionResponse =
+  | {
+      success: true;
+      data: SkuItemApiRequest;
+    }
+  | {
+      success: false;
+      error: string;
+    };
+
+export async function updateSkuItem(
+  item: SkuItemApiRequest
+): Promise<ActionResponse> {
+  const host = getHost();
+
+  try {
+    const response = await fetch(`${host}/api/sku`, {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(item),
+    });
+
+    revalidatePath("/sku-cms");
+
+    return {
+      success: true,
+      data: item,
+    };
+  } catch (error) {
+    const message = `There was a problem updating SKU item ${
+      item.sku
+    }. Error message: ${(error as Error).message || error}`;
+    console.error(message);
+
+    return {
+      success: false,
+      error: message,
+    };
   }
 }
