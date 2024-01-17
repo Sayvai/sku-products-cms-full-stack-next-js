@@ -46,7 +46,7 @@ export async function GET(req: Request) {
 export async function POST(req: Request) {
   try {
     const validatedData = skuItemApiRequestValidator.safeParse(
-      await req.formData()
+      await req.json()
     );
 
     if (!validatedData.success) {
@@ -91,7 +91,7 @@ export async function POST(req: Request) {
 export async function PUT(req: Request, res: Response) {
   try {
     const validatedData = skuItemApiRequestValidator.safeParse(
-      await req.formData()
+      await req.json()
     );
 
     if (!validatedData.success) {
