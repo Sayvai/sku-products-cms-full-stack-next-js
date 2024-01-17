@@ -89,6 +89,9 @@ const FileUpload = ({
           Accepted file type(s):{" "}
           <span className="text-orange-500 font-bold">{acceptedFileTypes}</span>
         </small>
+        <small className="text-center text-gray-500 dark:text-gray-300">
+          ⚠️ Re-uploading files will reset the data,
+        </small>
         {uploading && (
           <p className="block text-2xl text-center">Uploading...</p>
         )}

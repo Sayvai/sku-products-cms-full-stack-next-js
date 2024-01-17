@@ -33,8 +33,12 @@ export async function POST(req: Request) {
 
     const status = await new Promise<number>((resolve, reject) => {
       db.serialize(() => {
+        // run a DB command to clear products table
+        db.run("DELETE FROM products");
+
         stream.pipe(csvParser()).on("data", (data) => {
           const { quantity, sku, description, store } = data;
+
           db.run(
             "INSERT INTO products (quantity, sku, description, store) VALUES (?, ?, ?, ?)",
             [quantity, sku, description, store],
