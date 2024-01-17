@@ -37,3 +37,6 @@ next-env.d.ts
 
 # DB
 *.sqlite
+
+# temp
+/public/tmp
