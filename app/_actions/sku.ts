@@ -71,3 +71,36 @@ export async function updateSkuItem(
     };
   }
 }
+
+export async function createSkuItem(
+  item: SkuItemApiRequest
+): Promise<ActionResponse> {
+  const host = getHost();
+
+  try {
+    const response = await fetch(`${host}/api/sku`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(item),
+    });
+
+    revalidatePath("/sku-cms");
+
+    return {
+      success: true,
+      data: item,
+    };
+  } catch (error) {
+    const message = `There was a problem creating SKU item ${
+      item.sku
+    }. Error message: ${(error as Error).message || error}`;
+    console.error(message);
+
+    return {
+      success: false,
+      error: message,
+    };
+  }
+}

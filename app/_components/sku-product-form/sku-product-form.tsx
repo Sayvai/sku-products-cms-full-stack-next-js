@@ -3,7 +3,7 @@
 import { useForm, SubmitHandler } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 
-import { updateSkuItem } from "@/app/_actions/sku";
+import { updateSkuItem, createSkuItem } from "@/app/_actions/sku";
 import {
   SkuItemApiRequest,
   skuItemApiRequestValidator,
@@ -35,7 +35,7 @@ export default function SkuProductForm({
   const router = useRouter();
 
   const processForm: SubmitHandler<SkuItemApiRequest> = async (data) => {
-    let saveItem = editMode ? updateSkuItem : updateSkuItem; // TODO: refactor else ternary condition to add createSkuItem in later implementation
+    let saveItem = editMode ? updateSkuItem : createSkuItem;
 
     const result = await saveItem(data);
 

@@ -36,7 +36,7 @@ export default function DialogTriggerItem({
             {triggerItem}
           </DropdownMenuItem>
         ) : (
-          <Button>{triggerItem}</Button>
+          triggerItem
         )}
       </DialogTrigger>
       <DialogContent>
