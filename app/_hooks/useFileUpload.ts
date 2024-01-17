@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { revalidatePathOnClient } from "../_actions/cache";
 
 interface useFileUpload {
   fileName: string | null;
@@ -38,6 +39,8 @@ const useFileUpload = (): useFileUpload => {
       );
     } finally {
       setLoading(false);
+
+      revalidatePathOnClient("/sku-cms");
     }
   }
 
