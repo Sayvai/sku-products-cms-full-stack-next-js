@@ -58,12 +58,10 @@ export default function SkuProductForm({
         onSubmit={handleSubmit(processForm)}
         className="flex flex-1 flex-col gap-4 sm:w-1/2"
       >
-        <label className="text-sm dark:text-gray-400">
-          {data?.sku && "SKU ID"}
-        </label>
+        <label className="text-sm dark:text-gray-400">SKU ID</label>
         <input
           placeholder="SKU ID"
-          className="rounded-md p-2 border-2 dark:border-gray-600 border-gray-800"
+          className="uppercase rounded-md p-2 border-2 dark:border-gray-600 border-gray-800"
           {...register("sku")}
           disabled={editMode} //disable this SKU ID input only when in edit mode
         />
@@ -72,7 +70,8 @@ export default function SkuProductForm({
         )}
 
         <label className="text-sm dark:text-gray-400">Description</label>
-        <input
+        <textarea
+          rows={5}
           placeholder="Description"
           className="rounded-md p-2 border-2 dark:border-gray-600 border-gray-800"
           {...register("description")}
@@ -84,7 +83,7 @@ export default function SkuProductForm({
         <label className="text-sm dark:text-gray-400">Quantity</label>
         <input
           placeholder="Quantity"
-          className="rounded-md p-2 border-2 dark:border-gray-600 border-gray-800"
+          className="w-1/2 rounded-md p-2 border-2 dark:border-gray-600 border-gray-800"
           {...register("quantity")}
         />
         {errors.quantity?.message && (
@@ -94,7 +93,7 @@ export default function SkuProductForm({
         <label className="text-sm dark:text-gray-400">Store</label>
         <input
           placeholder="Store"
-          className="rounded-md p-2 border-2 dark:border-gray-600 border-gray-800"
+          className="w-1/5 uppercase rounded-md p-2 border-2 dark:border-gray-600 border-gray-800"
           {...register("store")}
         />
         {errors.store?.message && (
