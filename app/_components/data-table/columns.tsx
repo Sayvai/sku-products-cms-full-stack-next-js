@@ -57,7 +57,11 @@ export const columns: ColumnDef<SkuItemApiResponse>[] = [
             <DropdownMenuSeparator />
             <DialogTriggerItem
               title={`Edit SKU ID: ${skuItem.sku}`}
-              triggerItem={"Edit"}
+              triggerComponent={
+                <DropdownMenuItem onSelect={(event) => event.preventDefault()}>
+                  Edit
+                </DropdownMenuItem>
+              }
             >
               <SkuProductForm data={skuItem} primaryActionLabel="Update" />
             </DialogTriggerItem>

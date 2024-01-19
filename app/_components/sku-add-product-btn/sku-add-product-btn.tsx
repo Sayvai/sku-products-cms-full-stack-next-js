@@ -7,7 +7,7 @@ export default function SkuAddProductBtn() {
     <div className="">
       <DialogTriggerItem
         title="Add New SKU Product"
-        triggerItem={
+        triggerComponent={
           <Button className="w-full dark:bg-green-600 bg-green-800">
             Add SKU Product
           </Button>

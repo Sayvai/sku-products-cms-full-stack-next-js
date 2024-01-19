@@ -13,24 +13,35 @@ import { DropdownMenuItem } from "../ui/dropdown-menu";
 import { Button } from "../ui/button";
 
 type DialogTriggerItemProps = {
+  /**
+   * Pass in a compoonent that will render as the dialog content.
+   * @example <SkuProductForm />
+   */
   children: React.ReactElement;
+  /**
+   * The title of the dialog.
+   * @example "Add New SKU Product"
+   */
   title: string;
+  /**
+   * The description of the dialog.
+   * @example "Add a new SKU product to the database."
+   */
   description?: string;
-  triggerItem: React.ReactNode | string;
+  /**
+   * Pass in a component that will trigger the dialog to open.
+   * @example <Button>Add SKU Product</Button>
+   */
+  triggerComponent: React.ReactNode;
 };
 
 export default function DialogTriggerItem({
   children,
   title,
   description,
-  triggerItem,
+  triggerComponent,
 }: DialogTriggerItemProps) {
   const [dialogOpened, setDialogOpened] = React.useState(false);
-
-  const handleDropdownMenuItemSelect = (event: Event) => {
-    // when using the <DropdownMenuItem> component as the underlying dialog display trigger, we must prevent the default select event from firing to not bubble up to also close the dialog
-    event.preventDefault();
-  };
 
   const handleDialogOpenStateChange = () => {
     setDialogOpened((prevIsOpen) => !prevIsOpen);
@@ -38,15 +49,7 @@ export default function DialogTriggerItem({
 
   return (
     <Dialog open={dialogOpened} onOpenChange={handleDialogOpenStateChange}>
-      <DialogTrigger asChild>
-        {typeof triggerItem === "string" ? (
-          <DropdownMenuItem onSelect={handleDropdownMenuItemSelect}>
-            {triggerItem}
-          </DropdownMenuItem>
-        ) : (
-          triggerItem
-        )}
-      </DialogTrigger>
+      <DialogTrigger asChild>{triggerComponent}</DialogTrigger>
       <DialogContent>
         <DialogHeader>
           <DialogTitle>{title}</DialogTitle>
