@@ -14,11 +14,13 @@ import { useRouter } from "next/navigation";
 interface SkuProductFormProps {
   data?: SkuItemApiRequest;
   primaryActionLabel?: string;
+  onActionCompleted?: () => void;
 }
 
 export default function SkuProductForm({
   data,
   primaryActionLabel = "Submit",
+  onActionCompleted,
 }: SkuProductFormProps) {
   const editMode = !!data?.sku;
 
@@ -49,7 +51,9 @@ export default function SkuProductForm({
     // fully refresh the page to get the latest data.
     // Not nice, but it works for now.
     // Ideally we want to find a solution to propogate closeure of dialog up to the parent Dialog component via the columns def. Maybe via query params? Not ideal. Will need to think later.
-    window.location.reload();
+    // window.location.reload();
+
+    onActionCompleted && onActionCompleted();
   };
 
   return (
