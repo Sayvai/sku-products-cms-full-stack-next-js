@@ -28,7 +28,7 @@ export default function SkuProductForm({
     register,
     handleSubmit,
     reset,
-    formState: { errors },
+    formState: { errors, isSubmitting },
   } = useForm<SkuItemApiRequest>({
     resolver: zodResolver(skuItemApiRequestValidator),
     defaultValues: data,
@@ -104,7 +104,9 @@ export default function SkuProductForm({
           <p className="text-sm text-red-400">{errors.store.message}</p>
         )}
         <div className="mt-4">
-          <Button className="w-full">{primaryActionLabel}</Button>
+          <Button disabled={isSubmitting} className="w-full">
+            {primaryActionLabel}
+          </Button>
         </div>
       </form>
     </section>
