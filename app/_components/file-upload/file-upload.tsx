@@ -3,13 +3,12 @@
 import clsx from "clsx";
 import { useState } from "react";
 import useFileUpload from "../../_hooks/useFileUpload";
+import { SKU_FILE_UPLOAD_TYPES } from "@/app/_types/sku";
 
 type FileUploadProps = {
   buttonLabel?: string;
   dropZoneLabel?: string;
 };
-
-const FILE_TYPES = ["text/csv"];
 
 const FileUpload = ({
   buttonLabel = "Select File",
@@ -24,7 +23,7 @@ const FileUpload = ({
     uploadFile,
   } = useFileUpload();
 
-  const acceptedFileTypes = FILE_TYPES.join(", ");
+  const acceptedFileTypes = SKU_FILE_UPLOAD_TYPES.join(", ");
 
   function saveSelectedFileToState(file: File) {
     uploadFile(file);
@@ -33,7 +32,7 @@ const FileUpload = ({
   function handleUpload(e: React.ChangeEvent<HTMLInputElement>) {
     const uploadedFile = e.target.files?.[0] || null;
 
-    if (uploadedFile && FILE_TYPES.includes(uploadedFile.type)) {
+    if (uploadedFile && SKU_FILE_UPLOAD_TYPES.includes(uploadedFile.type)) {
       saveSelectedFileToState(uploadedFile);
     }
   }
@@ -44,7 +43,7 @@ const FileUpload = ({
 
     const droppedFile = e.dataTransfer.files?.[0] || null;
 
-    if (droppedFile && FILE_TYPES.includes(droppedFile.type)) {
+    if (droppedFile && SKU_FILE_UPLOAD_TYPES.includes(droppedFile.type)) {
       saveSelectedFileToState(droppedFile);
     } else {
       alert(

@@ -1,8 +1,16 @@
 import { z } from "zod";
 import { zfd } from "zod-form-data";
 
+export const SKU_FILE_UPLOAD_TYPES = ["text/csv"];
+
 export const skuFileUploadApiRequestValidator = zfd.formData({
-  "sku-file": zfd.file(),
+  "sku-file": zfd.file(
+    z
+      .custom<File>((val) => val instanceof File, "Please upload a file")
+      .refine((file) => SKU_FILE_UPLOAD_TYPES.includes(file.type), {
+        message: `File must be of type(S) ${SKU_FILE_UPLOAD_TYPES.join(", ")}`,
+      })
+  ),
 });
 
 export const skuIdValidator = zfd.text(

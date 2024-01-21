@@ -14,9 +14,9 @@ export async function POST(req: Request) {
     if (!validatedData.success) {
       const { errors } = validatedData.error;
 
-      throw new Error(
-        `Invalid data sent to API. Errors: ${JSON.stringify(errors)}`
-      );
+      return new Response(`Invalid data sent to API. ${errors.join(",")}`, {
+        status: 400,
+      });
     }
 
     const db = getDatabase();
