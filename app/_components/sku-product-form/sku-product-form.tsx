@@ -9,7 +9,6 @@ import {
   skuItemApiRequestValidator,
 } from "@/app/_types/sku";
 import { Button } from "../ui/button";
-import { useRouter } from "next/navigation";
 
 interface SkuProductFormProps {
   data?: SkuItemApiRequest;
@@ -34,8 +33,6 @@ export default function SkuProductForm({
     defaultValues: data,
   });
 
-  const router = useRouter();
-
   const processForm: SubmitHandler<SkuItemApiRequest> = async (data) => {
     let saveItem = editMode ? updateSkuItem : createSkuItem;
 
@@ -47,11 +44,6 @@ export default function SkuProductForm({
       reset();
       return;
     }
-
-    // fully refresh the page to get the latest data.
-    // Not nice, but it works for now.
-    // Ideally we want to find a solution to propogate closeure of dialog up to the parent Dialog component via the columns def. Maybe via query params? Not ideal. Will need to think later.
-    // window.location.reload();
 
     onActionCompleted && onActionCompleted();
   };
