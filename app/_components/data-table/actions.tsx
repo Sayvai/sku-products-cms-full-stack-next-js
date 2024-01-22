@@ -29,9 +29,19 @@ export function Actions({ data }: ActionsProps) {
       duration: Infinity,
     });
 
-    await deleteSkuItem(skuId);
+    const result = await deleteSkuItem(skuId);
 
     processingToast.dismiss();
+
+    if (!result?.success && result?.error) {
+      toast({
+        description: `Something went wrong. ${result.error}`,
+        variant: "destructive",
+        duration: 5000,
+      });
+
+      return;
+    }
 
     toast({
       description: `SKU ID: ${skuId} has been deleted.`,

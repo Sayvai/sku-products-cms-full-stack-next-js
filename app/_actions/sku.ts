@@ -4,7 +4,14 @@ import { revalidatePath } from "next/cache";
 import { getHost } from "../_lib/api";
 import { SkuItemApiRequest, skuIdValidator } from "../_types/sku";
 
-export async function deleteSkuItem(skuId: string) {
+interface DeleteSkuItemResponse {
+  success: boolean;
+  error?: string;
+}
+
+export async function deleteSkuItem(
+  skuId: string
+): Promise<DeleteSkuItemResponse | void> {
   const host = getHost();
 
   const validatedData = skuIdValidator.safeParse(skuId);
@@ -25,7 +32,11 @@ export async function deleteSkuItem(skuId: string) {
       (error as Error).message || error
     }`;
     console.error(message);
-    alert(message);
+
+    return {
+      success: false,
+      error: message,
+    };
   }
 }
 
