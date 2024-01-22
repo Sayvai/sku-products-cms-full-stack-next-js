@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { revalidatePathOnClient } from "../_actions/cache";
+import { useToast } from "@/app/_components/ui/use-toast";
 
 interface useFileUpload {
   fileName: string | null;
@@ -12,6 +13,8 @@ const useFileUpload = (): useFileUpload => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [file, setFile] = useState<File | null>(null);
+
+  const { toast } = useToast();
 
   async function uploadFile(file: File) {
     try {
@@ -31,12 +34,25 @@ const useFileUpload = (): useFileUpload => {
       }
 
       setFile(file);
+
+      toast({
+        description: "File uploaded successfully",
+        variant: "success",
+        duration: 5000,
+      });
     } catch (err) {
       setError(
         `There is a problem uploading the file: ${JSON.stringify(
           (err as Error).message || err
         )}`
       );
+
+      toast({
+        title: "File upload failed",
+        description: error,
+        variant: "destructive",
+        duration: 5000,
+      });
     } finally {
       setLoading(false);
 

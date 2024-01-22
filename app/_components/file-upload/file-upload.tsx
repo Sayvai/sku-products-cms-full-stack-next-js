@@ -4,6 +4,7 @@ import clsx from "clsx";
 import { useState } from "react";
 import useFileUpload from "../../_hooks/useFileUpload";
 import { SKU_FILE_UPLOAD_TYPES } from "@/app/_types/sku";
+import { useToast } from "@/app/_components/ui/use-toast";
 
 type FileUploadProps = {
   buttonLabel?: string;
@@ -15,6 +16,8 @@ const FileUpload = ({
   dropZoneLabel = "Or Drop File Here",
 }: FileUploadProps) => {
   const [isDragging, setIsDragging] = useState(false);
+
+  const { toast } = useToast();
 
   const {
     fileName,
@@ -46,9 +49,11 @@ const FileUpload = ({
     if (droppedFile && SKU_FILE_UPLOAD_TYPES.includes(droppedFile.type)) {
       saveSelectedFileToState(droppedFile);
     } else {
-      alert(
-        `File type not accepted. Accepted file type(s): ${acceptedFileTypes}`
-      );
+      toast({
+        description: `File type not accepted. Accepted file type(s) are the following: ${acceptedFileTypes}`,
+        variant: "destructive",
+        duration: 5000,
+      });
     }
   }
 
