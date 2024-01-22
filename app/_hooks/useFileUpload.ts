@@ -17,8 +17,16 @@ const useFileUpload = (): useFileUpload => {
   const { toast } = useToast();
 
   async function uploadFile(file: File) {
+    let processingToast;
+
     try {
       setLoading(true);
+
+      processingToast = toast({
+        description: "File is uploading",
+        variant: "info",
+        duration: Infinity,
+      });
 
       const formData = new FormData();
       formData.append("sku-file", file);
@@ -35,6 +43,8 @@ const useFileUpload = (): useFileUpload => {
 
       setFile(file);
 
+      processingToast.dismiss();
+
       toast({
         description: "File uploaded successfully",
         variant: "success",
@@ -46,6 +56,8 @@ const useFileUpload = (): useFileUpload => {
           (err as Error).message || err
         )}`
       );
+
+      processingToast?.dismiss();
 
       toast({
         title: "File upload failed",

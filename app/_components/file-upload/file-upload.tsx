@@ -19,12 +19,7 @@ const FileUpload = ({
 
   const { toast } = useToast();
 
-  const {
-    fileName,
-    loading: uploading,
-    error: uploadError,
-    uploadFile,
-  } = useFileUpload();
+  const { uploadFile } = useFileUpload();
 
   const acceptedFileTypes = SKU_FILE_UPLOAD_TYPES.join(", ");
 
@@ -96,20 +91,6 @@ const FileUpload = ({
         <small className="text-center text-gray-500 dark:text-gray-300">
           ⚠️ Re-uploading files will reset the data,
         </small>
-        {uploading && (
-          <p className="block text-2xl text-center">Uploading...</p>
-        )}
-        {uploadError && (
-          <p className="block text-2xl text-center text-red-500">
-            {uploadError}
-          </p>
-        )}
-        {fileName && !uploading && !uploadError ? (
-          <span className="block text-2xl text-center">
-            <span className="text-emerald-500">{fileName}</span> - uploaded
-            successfully! 🎊
-          </span>
-        ) : null}
       </div>
     </form>
   );
