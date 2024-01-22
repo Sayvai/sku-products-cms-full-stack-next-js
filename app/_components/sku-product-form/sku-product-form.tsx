@@ -9,6 +9,7 @@ import {
   skuItemApiRequestValidator,
 } from "@/app/_types/sku";
 import { Button } from "../ui/button";
+import { useToast } from "@/app/_components/ui/use-toast";
 
 interface SkuProductFormProps {
   data?: SkuItemApiRequest;
@@ -21,6 +22,8 @@ export default function SkuProductForm({
   primaryActionLabel = "Submit",
   onActionCompleted,
 }: SkuProductFormProps) {
+  const { toast } = useToast();
+
   const editMode = !!data?.sku;
 
   const {
@@ -41,9 +44,21 @@ export default function SkuProductForm({
     if (!result.success) {
       console.log(`Something went wrong. ${result.error}`);
 
+      toast({
+        description: `Something went wrong. ${result.error}`,
+        variant: "destructive",
+        duration: 5000,
+      });
+
       reset();
       return;
     }
+
+    toast({
+      description: `SKU ID: ${result.data.sku} has been saved.`,
+      variant: "success",
+      duration: 5000,
+    });
 
     onActionCompleted && onActionCompleted();
   };
