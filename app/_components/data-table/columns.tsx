@@ -12,11 +12,11 @@ export const columns: ColumnDef<SkuItemApiResponse>[] = [
   },
   {
     accessorKey: "description",
-    header: "Decsription",
+    header: "Description",
   },
   {
     accessorKey: "quantity",
-    header: "Queantity",
+    header: "Quantity",
   },
   {
     accessorKey: "store",
