@@ -20,6 +20,8 @@ Below is a list of the main technologies used to build this application:
 - [Tailwind CSS](https://tailwindcss.com/) - A utility-first CSS framework
 - [shadcn/ui](https://ui.shadcn.com/) - A modern and accessible React component library, typically used on the CLI to import modular and composable components
 - [react-hook-form](https://react-hook-form.com/) - A performant, flexible, and extensible forms library for React
+- [React Testing Library](https://testing-library.com/docs/react-testing-library/intro/) - A simple and complete React DOM testing utilities library
+- [MSW](https://mswjs.io/) - A browser mocking library for API mocking and testing
 
 ## Getting Started
 
@@ -34,6 +36,21 @@ Below is a list of the main technologies used to build this application:
 3. Install the dependencies; `npm install`
 4. Run the development server; `npm run dev`
 5. Open [http://localhost:3000/sku-cms](http://localhost:3000/sku-cms) with your browser to see the result.
+
+## Tests
+
+### Unit Tests
+
+Unit tests are implemented using React Testing Library and MSW.
+
+To run the unit tests, run the following command:
+
+```bash
+npm run test
+```
+
+> [!NOTE]
+> The unit tests are currently not complete, and are only a sample of what the unit tests would look like.
 
 ## Future Improvements and Considerations
 
