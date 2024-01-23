@@ -13,6 +13,13 @@ const config: Config = {
   testEnvironmentOptions: {
     customExportConditions: [""], // note: fix required for msw to work., to overcome "Cannot find module 'msw/node' from 'app/_mocks/msw/server.ts'" source: https://mswjs.io/docs/migrations/1.x-to-2.x#cannot-find-module-mswnode-jsdom
   },
+  globals: {
+    "ts-jest": {
+      tsconfig: {
+        jsx: "react-jsx",
+      },
+    },
+  },
 };
 
 export default config;
